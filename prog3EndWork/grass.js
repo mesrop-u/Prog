@@ -6,7 +6,7 @@ module.exports=class Grass extends LivingCreature{
     mul() {
         this.multiply++;
         var emptyCells = super.chooseCell(0);
-        var newCell = emptyCells(Math.floor(Math.random() * emptyCells.length));
+        var newCell = emptyCells[(Math.floor(Math.random() * emptyCells.length))];
         console.log(emptyCells);
         if (newCell && this.multiply >= 10) {
             var newX = newCell[0];

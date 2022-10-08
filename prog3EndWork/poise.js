@@ -1,11 +1,11 @@
 let LivingCreature = require("./LivingCreature")
 
-module.exports=class Poise {
+module.exports =class Poise extends LivingCreature {
    
     mul() {
         this.multiply++
-        var emptyCells = super.chooseCell(0);
-        var newCell = emptyCells(Math.floor(Math.random() * emptyCells.length));
+        var emptyCells = super.chooseCell(0);       
+        var newCell = emptyCells[(Math.floor(Math.random() * emptyCells.length))];
         if (newCell && this.multiply >= 15) {
             var newX = newCell[0];
             var newY = newCell[1];

@@ -1,16 +1,17 @@
-
-var socket = io();
+var socket = io()
 var side = 40;
 function setup() {
-    frameRate(5);
+   
     createCanvas(20 * side, 20 * side);
-    background('#acacac');
+
     
 }
 socket.on("weather", function (data) {
     weath = data;
 })
+weath = "winter"
 function nkarel(matrix) {
+    
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -66,14 +67,6 @@ function nkarel(matrix) {
 socket.on('send matrix', nkarel)
 
 
-setInterval(
-
-    
-    function(){
-        socket.on('send matrix', nkarel)
-    },1000
-)
-
 function kill() {
     socket.emit("kill")
     }
@@ -97,44 +90,3 @@ socket.emit("add poise")
 
 
 
-   
-
-
-
-
-
-
-
-// let matrix = generator(15,20, 10,10,10,10);
-// var grassArr = []
-// var GrassEaterArr = []
-// var PredatorArr = []
-// var SnakeArr = []
-// var PoiseArr = []
-// function setup() {
-//     frameRate(5);
-//     createCanvas(matrix[0].length * side, matrix.length * side);
-//     background('#acacac');
-//     for (var y = 0; y < matrix.length; y++) {
-//         for (var x = 0; x < matrix[y].length; x++) {
-//             if (matrix[y][x] == 1) {
-//                 let gr = new Grass(x, y)
-//                 grassArr.push(gr)
-//             } else if (matrix[y][x] == 2) {
-//                 let gre = new GrassEater(x, y)
-//                 GrassEaterArr.push(gre)
-//             } else if (matrix[y][x] == 3) {
-//                 let pr = new Predator(x, y)
-//                 PredatorArr.push(pr)
-//             }
-//             else if (matrix[y][x] == 4) {
-//                 let sn = new Snake(x, y)
-//                 SnakeArr.push(sn)
-//             }
-//             else if (matrix[y][x] == 5) {
-//                 let po = new Poise(x, y)
-//                 PoiseArr.push(po)
-//             }
-//         }
-//     }
-// }

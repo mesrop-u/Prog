@@ -16,7 +16,7 @@ module.exports = class Predator extends LivingCreature{
     mul() {
         this.multiply++
         var emptyCells = super.chooseCell(0);
-        var newCell = emptyCells(Math.floor(Math.random() * emptyCells.length));
+        var newCell = emptyCells[(Math.floor(Math.random() * emptyCells.length))];
         if (newCell && this.multiply >= 25) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -69,9 +69,9 @@ module.exports = class Predator extends LivingCreature{
             matrix[this.y][this.x] = 0
             this.x = newX
             this.y = newY
-            for (var i in grassEaterArr) {
-                if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
-                    grassEaterArr.splice(i, 1)
+            for (var i in GrassEaterArr) {
+                if (newX == GrassEaterArr[i].x && newY == GrassEaterArr[i].y) {
+                    GrassEaterArr.splice(i, 1)
                     break
                 }
             }

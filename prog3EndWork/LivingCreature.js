@@ -31,8 +31,8 @@ module.exports= class LivingCreature {
 
 
     chooseCell(char) {
+        this.getNewCoordinates();
         var found = [];
-
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];

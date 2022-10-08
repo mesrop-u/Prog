@@ -1,7 +1,7 @@
 var express = require('express');
 
 var app = express();
-var server = require('http').createServer(app);
+var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
 
@@ -62,23 +62,23 @@ function generator(matLen, gr, gre, pr, snake, poise) {
     }
     return matrix;
 }
-let matrix = generator(20, 10, 5, 2, 2, 3);
+ matrix = generator(20, 10, 5, 2, 2, 3);
 
 io.sockets.emit('send matrix',matrix)
 
 grassArr = []
 GrassEaterArr = []
-PredatorArr = []
+predatorArr = []
 SnakeArr = []
 PoiseArr = []
 
 
 
-Grass1 = require("./grass")
-GrassEater1 = require("./grasseater")
-Predator1 = require("./predator")
-Snake1 = require("./snake")
-Poise1 = require("./poise")
+Grass = require("./grass")
+GrassEater = require("./grasseater")
+Predator = require("./predator")
+Snake = require("./snake")
+Poise = require("./poise")
 weath = "winter";
 
 function createObject(matrix){
@@ -92,13 +92,13 @@ function createObject(matrix){
                GrassEaterArr.push(gre)
            } else if (matrix[y][x] == 3) {
                let pr = new Predator(x, y)
-               PredatorArr.push(pr)
+               predatorArr.push(pr)
            } else if (matrix[y][x] == 4) {
                let snake = new Snake(x, y)
-               PoiseArr.push(hum)
+               SnakeArr.push(snake)
            } else if (matrix[y][x] == 5) {
                let poise = new Poise(x, y)
-               PoiseArr.push(gar)
+               PoiseArr.push(poise)
            }
        }
    }
@@ -116,16 +116,16 @@ function game(){
       GrassEaterArr[i].mul()
       GrassEaterArr[i].eat()
   }
-  for (let i in PredatorArr) {
-      PredatorArr[i].mul()
-      PredatorArr[i].eat()
+  for (let i in predatorArr) {
+      predatorArr[i].mul()
+      predatorArr[i].eat()
   }
   for (let i in SnakeArr) {
       SnakeArr[i].mul()
       SnakeArr[i].move()
   }
   for (let i in PoiseArr) {
-      PoiseArr[i].mul()
+       PoiseArr[i].mul()
       PoiseArr[i].move()
   }
   io.sockets.emit('send matrix',matrix)
@@ -225,7 +225,7 @@ function weather() {
 }
 setInterval(weather, 5000);
 
-io.on('connection', function(){
+io.on('connection', function(socket){
    createObject(matrix)
    socket.on("kill", kill);
    socket.on("add grass", addGrass);
@@ -238,7 +238,7 @@ var statistics = {}
 setInterval(function() {
    statistics.grass = grassArr.length;
    statistics.grassEater = GrassEaterArr.length;
-   statistics.predator = PredatorArr.length;
+   statistics.predator = predatorArr.length;
    statistics.snake = SnakeArr.length;
    statistics.poise = PoiseArr.length;
    fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
