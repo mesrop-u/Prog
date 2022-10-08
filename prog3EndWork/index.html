@@ -8,10 +8,66 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
 
+   
+    <style>
+        body{
+            background-image: linear-gradient(to right, red, blue)
+        }
+        #defaultCanvas0{
+            margin-left: 500px;
+
+        }
+        
+    </style>
 
 </head>
+<table id='table'>
+    <!-- HEADING FORMATION -->
+    <tr>
+        <th>GFG UserHandle</th>
+        <th>Practice Problems</th>
+        <th>Coding Score</th>
+        <th>GFG Articles</th>
+    </tr>
 
 <body>
+    <script>
+        $(document).ready(function () {
+
+            // FETCHING DATA FROM JSON FILE
+            $.getJSON("statistics.json", 
+                    function (data) {
+                var student = '';
+
+                // ITERATING THROUGH OBJECTS
+                $.each(data, function (key, value) {
+
+                    //CONSTRUCTION OF ROWS HAVING
+                    // DATA FROM JSON OBJECT
+                    student += '<tr>';
+                    student += '<td>' + 
+                        value.addGrass + '</td>';
+
+                    student += '<td>' + 
+                        value.addGrassEater + '</td>';
+
+                    student += '<td>' + 
+                        value.addPredator + '</td>';
+
+                    student += '<td>' + 
+                        value.addSnake + '</td>';
+                    student += '<td>' + 
+                        value.addPoise + '</td>';
+
+                    student += '</tr>';
+                });
+                  
+                //INSERTING ROWS INTO TABLE 
+                $('#table').append(student);
+            });
+        });
+    </script>
+  
     
 
 

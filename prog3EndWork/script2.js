@@ -47,7 +47,9 @@ function nkarel(matrix) {
         }
     }   
 }
-
+function stat(){
+    
+}
 
 // function nkarel(matrix) {
 //     for (var y = 0; y < matrix.length; y++) {
